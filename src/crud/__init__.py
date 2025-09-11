@@ -10,5 +10,4 @@ db_session = get_session()
 
 task_step = Crud[TaskStep, TaskStepCreate, TaskStepUpdate](db_session, TaskStep)
 issue = CrudIssue(db_session)
-
 create_all(Base)
