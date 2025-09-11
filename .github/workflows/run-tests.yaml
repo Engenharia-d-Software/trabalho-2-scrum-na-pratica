@@ -1,0 +1,35 @@
+name: run tests when a PR is created
+
+on:
+  pull_request:
+    types: [opened, reopened, synchronize]
+
+env:
+  PYTHON_VERSION: "3.13.0"
+
+jobs:
+  run_tests:
+    name: Run tests
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: szenius/set-timezone@v1.2
+        with:
+          timezoneLinux: "America/Sao_Paulo"
+
+      - uses: actions/checkout@v4
+
+      - name: Set up Python ${{ env.PYTHON_VERSION }}
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+
+      - name: Install dependencies
+        run: |
+          pip install -r test-requirements.txt -r requirements.txt
+
+      - uses: pavelzw/pytest-action@v2
+        with:
+          emoji: true
+          verbose: true
+          job-summary: true
