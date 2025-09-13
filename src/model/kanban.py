@@ -25,7 +25,7 @@ class TaskStep(Base):
     __tablename__ = "task_steps"
 
     id: Mapped[int] = mapped_column(primary_key=True)
-    name: Mapped[str]
+    name: Mapped[str] = mapped_column(String, unique=True)
     wip_limit: Mapped[int | None] = mapped_column(nullable=True) # when null, it means that no wip limit were set
 
     issues: Mapped[list[Issue]] = relationship(back_populates="task_step")

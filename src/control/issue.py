@@ -8,11 +8,11 @@ def create_issue(issue: IssueCreate):
     try:
         return crud.issue.create(issue)
     except IntegrityError:
-        pass
+        raise ValueError("The issue name should be unique")
 
-def update_issue(nome):
-    issue = IssueUpdate(title=nome)
+
+def update_issue(issue: IssueUpdate):
     try:
         crud.issue.update(issue)
     except IntegrityError:
-        pass
+        raise ValueError("The issue name should be unique")
